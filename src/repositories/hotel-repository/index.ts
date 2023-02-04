@@ -3,7 +3,9 @@ import { prisma } from "@/config";
 const hotelRepository = {
   findEnrollmentByUserId,
   findTicketByEnrollmentId,
-  findHotels
+  findHotels,
+  findHotelById,
+  findRoomsForhotel
 };
 
 export default hotelRepository;
@@ -25,4 +27,16 @@ function findTicketByEnrollmentId(enrollmentId: number) {
 
 function findHotels() {
   return prisma.hotel.findMany();
+}
+
+function findHotelById(hotelId: number) {
+  return prisma.hotel.findFirst({
+    where: { id: hotelId }
+  });
+}
+
+function findRoomsForhotel(hotelId: number) {
+  return prisma.room.findMany({
+    where: { hotelId }
+  });
 }

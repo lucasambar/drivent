@@ -10,7 +10,9 @@ async function get(req: AuthenticatedRequest, res: Response) {
 
 async function getWithId(req: AuthenticatedRequest, res: Response) {
   const userId = req.userId;
-  const hotelId = req.params.hotelId;
+  const hotelId = Number(req.params.hotelId);
+  const response = await hotelService.getWithId(userId, hotelId);
+  return res.send(response);
 }
 
 const hotelsController = {

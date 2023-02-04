@@ -15,6 +15,12 @@ async function validateEnrollment(enrollmentId: number) {
   return;
 }
 
+async function findHotel(hotelId: number) {
+  const hotel = await hotelRepository.findHotelById(hotelId);
+  if (!hotel) throw hotelErrors.notFound("Hotel not found.");
+  return hotel;
+}
+
 async function get(userId: number) {
   const enrollmentId = await validateUserId(userId);
   await validateEnrollment(enrollmentId);
@@ -22,8 +28,18 @@ async function get(userId: number) {
   return hotels;
 }
 
+async function getWithId(userId: number, hotelId: number) {
+  const enrollmentId = await validateUserId(userId);
+  await validateEnrollment(enrollmentId);
+  
+  const hotel = await findHotel(hotelId);
+  const rooms = await hotelRepository.findRoomsForhotel(hotelId);
+  return { ...hotel, rooms };
+}
+
 const hotelService = {
   get,
+  getWithId
 };
 
 export default hotelService;
