@@ -21,10 +21,16 @@ async function findHotel(hotelId: number) {
   return hotel;
 }
 
+async function findHotels() {
+  const hotels = await hotelRepository.findHotels();
+  if (hotels.length === 0) throw hotelErrors.notFound("Not found any hotels.");
+  return hotels;
+}
+
 async function get(userId: number) {
   const enrollmentId = await validateUserId(userId);
   await validateEnrollment(enrollmentId);
-  const hotels = await hotelRepository.findHotels();
+  const hotels = await findHotels();
   return hotels;
 }
 
