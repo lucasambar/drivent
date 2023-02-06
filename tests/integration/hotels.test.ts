@@ -5,7 +5,6 @@ import { cleanDb, generateValidToken } from "../helpers";
 import faker from "@faker-js/faker";
 import { createUser, createEnrollmentWithAddress, createRemoteTicketType, createTicketHotel, createTicketTypeWithoutHotel, createCorrectTicketType, createHotel } from "../factories";
 import * as jwt from "jsonwebtoken";
-import { number, string } from "joi";
 
 beforeAll(async () => {
   await init();
